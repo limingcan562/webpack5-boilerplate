@@ -62,7 +62,7 @@ const baseConfig = {
         return proPublicPath;
     },
 
-    // 获取需要把js\css\media\img 放入proResFileName文件夹的移动列表
+    // 获取需要把js\css 放入proResFileName文件夹的移动列表
     getMoveList() {
         let 
         {

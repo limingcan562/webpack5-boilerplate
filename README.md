@@ -1,11 +1,12 @@
 # webpack5-boilerplate
-用webpack5搭建的脚手架/webpack5-boilerplate
+基于webpack5搭建的脚手架/webpack5-boilerplate
 
 ## Features
-- `webpack5`
-- 支持代码分割
+- 基于`webpack5`搭建的脚手架
+- 支持第三方代码分割
 - 支持`ES6`语法编译
 - 编译`Less`
+- 支持自己的模块代码分割
 - 支持多页面打包
 
 ## File Structure
@@ -49,6 +50,25 @@
 `npm start`  
 - 打包  
 `npm run build`  
+- 如果要分割自己的代码模块，在`webpack.common.js`里面开启以下代码就可以了  
+```javascript
+myplugin: {
+    name: 'myplugin',
+    test(module) {
+        // `module.resource` contains the absolute path of the file on disk.
+        // Note the usage of `path.sep` instead of / or \, for cross-platform compatibility.
+        // console.log(module.resource, 111);
+        // console.log(module.resource && module.resource.includes(`${path.sep}Myplugins${path.sep}`));
+        return(
+            module.resource &&
+            module.resource.includes(`${path.sep}plugins${path.sep}myplugin`)
+        );
+    },
+    minSize: 0, //表示在压缩前的最小模块大小,默认值是 30kb
+    priority: 10,  // 优先级要大于 vendors 不然会被打包进 vendors
+    chunks: 'initial' // 将什么类型的代码块用于分割，三选一： "initial"：入口代码块 | "all"：全部 | "async"：按需加载的代码块
+},
+```
 
 ## Instruction
 - 本地开发过程中，开启了`webpack-dev-server`，保存在内存中的打包文件目录结构：
@@ -94,7 +114,11 @@
     ├── index.html
     └── share.html
     ```
-- `public`文件夹里面的文件命名，避免跟`src`下的文件名相同，否则打包后会覆盖掉`src`下的打包出来的文件
+- `public`文件夹里面的文件命名，避免跟`src`下的文件名相同，否则打包后会覆盖掉`src`下的打包出来的文件  
+
+## End
+- 欢迎大家`Fork`学习交流
+- 脚手架里面都写了注释了，如果觉得好用，欢迎大家`Star`  
 
 
 

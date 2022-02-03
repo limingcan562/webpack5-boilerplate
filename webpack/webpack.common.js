@@ -30,6 +30,13 @@ const webpackCommonConfig = {
         chunkFilename: `${outJsFileName}[name]-[contenthash:${hashNum}].js`, 
     },
 
+    // 快速引入对应模块
+    resolve: {
+        alias: {
+            plugins: path.resolve(__dirname, '../src/assets/plugins/'),
+        },
+    },
+
     // loader编译
     module: {
         rules: [
@@ -103,6 +110,24 @@ const webpackCommonConfig = {
                  * @async 代表只有异步加载的模块会被分割
                  * @all 代表前两者都会被分割
                  **/
+
+                // 分割自己写的插件代码
+                /* myplugin: {
+                    name: 'myplugin',
+                    test(module) {
+                        // `module.resource` contains the absolute path of the file on disk.
+                        // Note the usage of `path.sep` instead of / or \, for cross-platform compatibility.
+                        // console.log(module.resource, 111);
+                        // console.log(module.resource && module.resource.includes(`${path.sep}Myplugins${path.sep}`));
+                        return(
+                            module.resource &&
+                            module.resource.includes(`${path.sep}plugins${path.sep}myplugin`)
+                        );
+                    },
+                    minSize: 0, //表示在压缩前的最小模块大小,默认值是 30kb
+                    priority: 10,  // 优先级要大于 vendors 不然会被打包进 vendors
+                    chunks: 'initial' // 将什么类型的代码块用于分割，三选一： "initial"：入口代码块 | "all"：全部 | "async"：按需加载的代码块
+                }, */
     
                 // 将 node_modules 里面的插件再分割出来
                 // jquery: {
@@ -111,6 +136,7 @@ const webpackCommonConfig = {
                 //     priority: 6,  // 优先级要大于 vendors 不然会被打包进 vendors
                 //     chunks: 'initial' // 将什么类型的代码块用于分割，三选一： "initial"：入口代码块 | "all"：全部 | "async"：按需加载的代码块
                 // },
+
                 // 公用的js，最少被引用了两次打包
                 commons: {
                     name:  'commons',

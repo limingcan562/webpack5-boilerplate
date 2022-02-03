@@ -8,14 +8,7 @@ webpackBaseConfig = require('./webpack.base'),
 {
     outDistFileName,
     outCssFileName,
-    outJsFileName,
     staticFileName,
-    hashNum,
-    proResFileName,
-    outImageFileName,
-    outFontFileName,
-    outMediaFileName,
-    pageConfig,
 } = webpackBaseConfig;
 
 const webpackProConfig = {
@@ -64,6 +57,7 @@ const webpackProConfig = {
             chunkFilename: `${outCssFileName}[id].css`
         }),
 
+        // 注入项目中可以访问的全局变量
         new webpack.DefinePlugin({
             'DEBUG': 0
         }),
