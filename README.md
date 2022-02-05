@@ -117,8 +117,6 @@ myplugin: {
 - `public`文件夹里面的文件命名，避免跟`src`下的文件名相同，否则打包后会覆盖掉`src`下的打包出来的文件  
 
 ## End
+- 对于这个脚手架的更多的分析，可以看看我这个文章[关于Webpack5搭建的一些体会](https://limingcan562.github.io/posts/build-webpack5-feeling)
 - 欢迎大家`Fork`学习交流
 - 脚手架里面都写了注释了，如果觉得好用，欢迎大家`Star`  
-
-
-
