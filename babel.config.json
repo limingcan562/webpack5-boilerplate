@@ -4,8 +4,11 @@
       "@babel/preset-env", 
       {
         "useBuiltIns": "usage",
-        "corejs": "3",
-        "modules": "auto"
+        "corejs": {
+          "version": "3.20.3",
+          "proposals": true 
+        },
+        "modules": false
       }
     ]
   ],
