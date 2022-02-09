@@ -5,6 +5,7 @@ MiniCssExtractPlugin = require("mini-css-extract-plugin"),
 FileManagerPlugin = require('filemanager-webpack-plugin'),
 CssMinimizerPlugin = require("css-minimizer-webpack-plugin"),
 webpackBaseConfig = require('./webpack.base'),
+TerserPlugin = require("terser-webpack-plugin"),
 {
     outDistFileName,
     outCssFileName,
@@ -41,7 +42,7 @@ const webpackProConfig = {
     
     plugins: [
         // 添加banner说明
-        /* new webpack.BannerPlugin({
+        new webpack.BannerPlugin({
             banner: 
             '----------------------------------\n'+
             '@author：-lMC燦\n'+
@@ -49,7 +50,7 @@ const webpackProConfig = {
             '@contact：leemimgcan@gmail.com\n'+
             '----------------------------------',
             entryOnly: true,
-        }), */
+        }),
 
         // 分离css
         new MiniCssExtractPlugin({
@@ -86,7 +87,12 @@ const webpackProConfig = {
             // 压缩css
             new CssMinimizerPlugin(),
 
-            // '...' 来访问默认值。（不加的话，js不会压缩）
+            // 去掉生成的LICENSE.txt，将版权信息置于banner内
+            new TerserPlugin({
+                extractComments: false
+            }),
+
+            // '...' 来访问默认值。（不加的话，js不会压缩，一定要放最后）
             '...'
         ],
     },
