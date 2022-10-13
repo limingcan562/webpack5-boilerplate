@@ -10,6 +10,8 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 - Compile `Less`
 - Support own module code splitting
 - Support multi-page packaging
+- -Compatible with versions above level 'ie10'
+
 
 ## File Structure
 ```
@@ -117,6 +119,10 @@ myplugin: {
     └── share.html
     ```
 - The file name in the `public` folder should not be the same as the file name under `src`, otherwise the packaged file under `src` will be overwritten after packaging  
+
+## Other
+The test shows that the '@ babel/plugin transform modules commonjs' plug-in will affect the `webpack` `tree shaking` function, so this plug-in should be installed with caution
+
 
 ## End
 - For more analysis of this scaffolding, you can see my article [some experience on Webpack5 construction](https://limingcan562.github.io/posts/build-webpack5-feeling)

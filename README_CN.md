@@ -8,6 +8,7 @@
 - 编译`Less`
 - 支持自己的模块代码分割
 - 支持多页面打包
+- 兼容`ie10`级以上版本
 
 ## File Structure
 ```
@@ -115,6 +116,9 @@ myplugin: {
     └── share.html
     ```
 - `public`文件夹里面的文件命名，避免跟`src`下的文件名相同，否则打包后会覆盖掉`src`下的打包出来的文件  
+
+## Other
+经过测试发现，`@babel/plugin-transform-modules-commonjs`这个插件会影响`webpack` `tree shaking`的功能，所以这个插件还是要慎重安装
 
 ## End
 - 对于这个脚手架的更多的分析，可以看看我这个文章[关于Webpack5搭建的一些体会](https://limingcan562.github.io/posts/build-webpack5-feeling)
