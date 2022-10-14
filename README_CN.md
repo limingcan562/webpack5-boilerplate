@@ -28,7 +28,7 @@
 │       ├── index.html
 │       └── share.html
 └── webpack
-    ├── webpack.base.js
+    ├── config.js
     ├── webpack.common.js
     ├── webpack.dev.js
     └── webpack.prod.js
@@ -39,7 +39,7 @@
 - `entry`: 入口文件
 - `pages`：要被编译的`html`模板
 - `webpack`：关于`webpack`的相关配置
-- `webpack.base.js`：一些全局变量，作用于开发，生产中
+- `config.js`：自己可以`DIY`的一些配置项
 - `webpack.common.js`：`webpack`开发跟生产配置中的共用配置
 - `webpack.dev.js`：`development`模式的配置（本地开发）
 - `webpack.prod.js`：`production`模式的配置（生产上线）
@@ -100,9 +100,9 @@ myplugin: {
     > 会把`css`，`js`，`img`，`media`分离  
 
 ## Attention  
-- `webpack.base.js`里面的`proPublicPath`字段，可用于打包后，`html`访问静态资源的绝对路径。例如静态资源部署了`cdn`，那就可以把值设置为`cdn`路径
-- `webpack.base.js`里面的`staticFileName`字段，表示不经过`webpack`打包的静态资源目录，**生产打包后会直接拷贝到打包文件夹根目录下**
-- `webpack.base.js`里面的`proResFileName`字段，表示将`js、css、media、img`等静态资源放入`proResFileName`文件夹，`dist`包根目录只留`html`文件或其他文件，方便部署。例如`proResFileName`的值为`assets`时，则打包后的结构为：  
+- `config.js`里面的`proPublicPath`字段，可用于打包后，`html`访问静态资源的绝对路径。例如静态资源部署了`cdn`，那就可以把值设置为`cdn`路径
+- `config.js`里面的`staticFileName`字段，表示不经过`webpack`打包的静态资源目录，**生产打包后会直接拷贝到打包文件夹根目录下**
+- `config.js`里面的`proResFileName`字段，表示将`js、css、media、img`等静态资源放入`proResFileName`文件夹，`dist`包根目录只留`html`文件或其他文件，方便部署。例如`proResFileName`的值为`assets`时，则打包后的结构为：  
     ```
     dist
     ├── assets

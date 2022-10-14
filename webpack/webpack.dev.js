@@ -2,12 +2,12 @@
 const 
 webpack = require('webpack'),
 path = require('path'),
-webpackBaseConfig = require('./webpack.base'),
+config = require('./config'),
 {
     port,
     staticFileName,
     devOutPutPath,
-} = webpackBaseConfig;
+} = config;
 
 const webpackDevConfig = {
     mode: 'development',

@@ -3,7 +3,7 @@ const
 path = require('path'),
 webpackDevConfig = require('./webpack.dev'),
 webpackProdConfig = require('./webpack.prod'),
-webpackBaseConfig = require('./webpack.base'),
+config = require('./config'),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
 {merge} = require('webpack-merge'),
 envMode = process.argv.findIndex(item => item.includes('production')),
@@ -17,11 +17,23 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
     hashNum,
     proResFileName,
     pageConfig,
-} = webpackBaseConfig;
+} = config,
+// 返回页面配置的entry
+getPageEntry = pageConfig => {
+    const entryConfig = {};
+    pageConfig.forEach(item => {
+        const entryName = item.name;
+        const entryPath = item.path;
+
+        entryConfig[entryName] = entryPath;
+    });
+    // console.log(entryConfig);
+    return entryConfig;
+};
 
 const webpackCommonConfig = {
     // 入口
-    entry: webpackBaseConfig.getPageEntry(),
+    entry: getPageEntry(pageConfig),
     output: {
         path: path.resolve(__dirname, `../${outDistFileName}`),
         filename: `${outJsFileName}/[name]-[contenthash:${hashNum}].js`,

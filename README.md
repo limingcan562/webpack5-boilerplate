@@ -10,7 +10,7 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 - Compile `Less`
 - Support own module code splitting
 - Support multi-page packaging
-- Compatible with versions above level 'ie10'
+- Compatible with versions above level `IE10`
 
 
 ## File Structure
@@ -31,7 +31,7 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 │       ├── index.html
 │       └── share.html
 └── webpack
-    ├── webpack.base.js
+    ├── config.js
     ├── webpack.common.js
     ├── webpack.dev.js
     └── webpack.prod.js
@@ -42,7 +42,7 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 - `entry`: entry file
 - `pages`: the `html` template to be compiled
 - `webpack`: related configuration about `webpack`
-- `webpack.base.js`: some global variables, used in development and production
+- `config.js`: Some configuration items for `DIY`
 - `webpack.common.js`: shared configuration in `webpack` development and production configuration
 - `webpack.dev.js`: Configuration for `development` mode (local development)
 - `webpack.prod.js`: `production` mode configuration (production goes live)
@@ -103,9 +103,9 @@ myplugin: {
     > Will separate `css`, `js`, `img`, `media`   
 
 ## Attention  
-- The `proPublicPath` field in `webpack.base.js` can be used to access the absolute path of `html` static resources after packaging. For example, if a static resource deploys `cdn`, you can set the value to the `cdn` path
-- The `staticFileName` field in `webpack.base.js` indicates that the static resource directory that is not packaged by `webpack` **will be copied directly to the root directory of the packaging folder after production packaging**
-- The `proResFileName` field in `webpack.base.js` indicates that static resources such as `js, css, media, img` are placed in the `proResFileName` folder, and only the `html` file or the `dist` package root directory is left. Other files for easy deployment. For example, when the value of `proResFileName` is `assets`, the packaged structure is:
+- The `proPublicPath` field in `config.js` can be used to access the absolute path of `html` static resources after packaging. For example, if a static resource deploys `cdn`, you can set the value to the `cdn` path
+- The `staticFileName` field in `config.js` indicates that the static resource directory that is not packaged by `webpack` **will be copied directly to the root directory of the packaging folder after production packaging**
+- The `proResFileName` field in `config.js` indicates that static resources such as `js, css, media, img` are placed in the `proResFileName` folder, and only the `html` file or the `dist` package root directory is left. Other files for easy deployment. For example, when the value of `proResFileName` is `assets`, the packaged structure is:
     ```
     dist
     ├── assets
@@ -121,7 +121,7 @@ myplugin: {
 - The file name in the `public` folder should not be the same as the file name under `src`, otherwise the packaged file under `src` will be overwritten after packaging  
 
 ## Other
-The test shows that the '@ babel/plugin transform modules commonjs' plug-in will affect the `webpack` `tree shaking` function, so this plug-in should be installed with caution
+The test shows that the `@babel/plugin-transform-modules-commonjs` plug-in will affect the `webpack` `tree shaking` function, so this plug-in should be installed with caution
 
 
 ## End
