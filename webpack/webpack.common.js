@@ -56,6 +56,7 @@ createStaticFile = fileName => {
     }
 }
 
+// 生成staticFileName目录
 createStaticFile(staticFileName);
 
 
