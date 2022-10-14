@@ -9,5 +9,7 @@ document.querySelector('main').addEventListener('mousedown', evt => {
     console.log('play music');
 });
 
+console.log(`-------INFO-------`);
 console.log('hello, I am from index.js');
 Common.sayHello();
+console.log('hello, I am a variable from configuring "webpack.DefinePlugin"', DEBUG);

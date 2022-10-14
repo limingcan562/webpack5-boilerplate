@@ -24,10 +24,10 @@ const webpackCommonConfig = {
     entry: webpackBaseConfig.getPageEntry(),
     output: {
         path: path.resolve(__dirname, `../${outDistFileName}`),
-        filename: `${outJsFileName}[name]-[contenthash:${hashNum}].js`,
+        filename: `${outJsFileName}/[name]-[contenthash:${hashNum}].js`,
 
         // 控制的是import() 出来的js，默认与filename一样
-        chunkFilename: `${outJsFileName}[name]-[contenthash:${hashNum}].js`, 
+        chunkFilename: `${outJsFileName}/[name]-[contenthash:${hashNum}].js`, 
     },
 
     // 快速引入对应模块
@@ -53,7 +53,7 @@ const webpackCommonConfig = {
 
                 // 设置导出的路径为 img
                 generator: {
-                    filename:  `${outImageFileName}[name]-[hash:2][ext][query]`,
+                    filename:  `${outImageFileName}/[name]-[hash:${hashNum}][ext][query]`,
                     outputPath: is_pro ? proResFileName : ''
                 }
             },
@@ -72,7 +72,7 @@ const webpackCommonConfig = {
 
                 // 设置导出的路径为 font
                 generator: {
-                    filename:  `${outFontFileName}[name]-[hash:2][ext][query]`,
+                    filename:  `${outFontFileName}/[name]-[hash:${hashNum}][ext][query]`,
                     outputPath: is_pro ? proResFileName : ''
                 }
             },
@@ -83,7 +83,7 @@ const webpackCommonConfig = {
                 type: 'asset/resource',
                 // 设置导出的路径为 font
                 generator: {
-                    filename:  `${outMediaFileName}[name]-[hash:2][ext][query]`,
+                    filename:  `${outMediaFileName}/[name]-[hash:${hashNum}][ext][query]`,
                     outputPath: is_pro ? proResFileName : ''
                 }
             },

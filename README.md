@@ -10,7 +10,7 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 - Compile `Less`
 - Support own module code splitting
 - Support multi-page packaging
-- -Compatible with versions above level 'ie10'
+- Compatible with versions above level 'ie10'
 
 
 ## File Structure

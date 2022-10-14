@@ -10,6 +10,7 @@ TerserPlugin = require("terser-webpack-plugin"),
     outDistFileName,
     outCssFileName,
     staticFileName,
+    hashNum,
 } = webpackBaseConfig;
 
 const webpackProConfig = {
@@ -54,8 +55,8 @@ const webpackProConfig = {
 
         // 分离css
         new MiniCssExtractPlugin({
-            filename: `${outCssFileName}[name].css`,
-            chunkFilename: `${outCssFileName}[id].css`
+            filename: `${outCssFileName}/[name]-[contenthash:${hashNum}].css`,
+            chunkFilename: `${outCssFileName}/[id]-[contenthash:${hashNum}].css`
         }),
 
         // 注入项目中可以访问的全局变量
