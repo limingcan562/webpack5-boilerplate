@@ -12,6 +12,7 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
 {
     outFontFileName,
     outMediaFileName,
+    outVideoFileName,
     outImageFileName,
     outDistFileName,
     outJsFileName,
@@ -19,6 +20,9 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
     proResFileName,
     staticFileName,
     pageConfig,
+    maxImgSize,
+    maxAudioSize,
+    maxFontSize
 } = config,
 // 返回页面配置的entry
 getPageEntry = pageConfig => {
@@ -36,7 +40,7 @@ getPageEntry = pageConfig => {
 createStaticFile = fileName => {
     const 
     myPath = path.resolve(__dirname, `../${fileName}`);
-    content = 'This file is created for the first time and will not be compiled by webpack.',
+    content = '# Description\nWhen you initialize the project for the first time and set the staticFileName configuration, but there is no staticFileName folder locally, the staticFileName folder will be generated, along with this file.  \n\n\n**The folder staticFileName will not be compiled by the webpack.**',
     creatingFileName = '[webpack.common.js]',
     createText = [`${creatingFileName} Create a`, 'folder']
 
@@ -50,7 +54,7 @@ createStaticFile = fileName => {
         
         fs.mkdirSync(myPath);
 
-        fs.writeFileSync(path.resolve(__dirname, `../${fileName}/test.txt`), content);
+        fs.writeFileSync(path.resolve(__dirname, `../${fileName}/README.md`), content);
 
         console.log(white, yellow1, green2, yellow2);
     }
@@ -88,7 +92,7 @@ const webpackCommonConfig = {
                 // 设置图片导出大小，如果小于预设的值，则会被转化成base64
                 parser: {
                     dataUrlCondition: {
-                        maxSize: 10 * 1024 // 4kb
+                        maxSize: maxImgSize * 1024
                     }
                 },
 
@@ -107,7 +111,7 @@ const webpackCommonConfig = {
                 // 设置字体导出大小，如果小于预设的值，则会被转化成base64
                 parser: {
                     dataUrlCondition: {
-                        maxSize: 10 * 1024 // 10kb
+                        maxSize: maxFontSize * 1024
                     }
                 },
 
@@ -118,13 +122,31 @@ const webpackCommonConfig = {
                 }
             },
 
-            // 编译音乐 || 视频
+            // 编译音乐
             {
-                test: /\.(mp4|mp3)$/,
-                type: 'asset/resource',
+                test: /\.(wav|mp3|ogg)$/,
+                type: 'asset',
+
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: maxAudioSize * 1024
+                    }
+                },
+
                 // 设置导出的路径为 font
                 generator: {
                     filename:  `${outMediaFileName}/[name]-[hash:${hashNum}][ext][query]`,
+                    outputPath: is_pro ? proResFileName : ''
+                }
+            },
+
+            // 编译视频
+            {
+                test: /\.(mp4)$/,
+                type: 'asset/resource',
+                // 设置导出的路径为 font
+                generator: {
+                    filename:  `${outVideoFileName}/[name]-[hash:${hashNum}][ext][query]`,
                     outputPath: is_pro ? proResFileName : ''
                 }
             },

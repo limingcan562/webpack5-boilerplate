@@ -7,6 +7,10 @@ const config = {
     outImageFileName: 'img', // 导出的 图片 文件夹名字
     outFontFileName: 'font', // 导出的 字体 文件夹名字
     outMediaFileName: 'media', // 导出的 媒体 文件夹名字
+    outVideoFileName: 'media', // 导出的 视频 文件夹名字
+    maxImgSize: 5, // 图片 < 5k时，会被转成base64 
+    maxAudioSize: 5, // 音频 < 5k时，会被转成base64 
+    maxFontSize: 5, // 字体 < 5k时，会被转成base64 
     outJsFileName: 'js', //  导出的 js 文件夹名字
     staticFileName: 'public', // dev模式访问的静态资源，生产环境，要直接copy到根目录
     outDistFileName: 'dist', // 存放打包出来的文件夹名
