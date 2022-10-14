@@ -41,7 +41,7 @@ createStaticFile = fileName => {
     createText = [`${creatingFileName} Create a`, 'folder']
 
     // 文件不存在，创建
-    if (!fs.existsSync(myPath)) {
+    if (fileName && !fs.existsSync(myPath)) {
         const
         white = '\033[37m<i>\033[0m',
         yellow1 = '\033[33m'+createText[0]+'\033[0m',
@@ -54,7 +54,7 @@ createStaticFile = fileName => {
 
         console.log(white, yellow1, green2, yellow2);
     }
-}
+};
 
 // 生成staticFileName目录
 createStaticFile(staticFileName);
