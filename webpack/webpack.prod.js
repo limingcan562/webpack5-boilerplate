@@ -59,7 +59,27 @@ getMoveList = config => {
     }
 
     return moveList;
-}
+},
+
+getOnEndConfig = config => {
+    let 
+    { staticFileName} = config,
+    onEndConfig = {
+        move: getMoveList(config)
+    };
+
+    if (staticFileName) {
+        onEndConfig.copy = [
+            {
+                source: `./${staticFileName}/`, 
+                destination: `./${outDistFileName}/`
+            },
+        ];
+    };
+    
+    return onEndConfig;
+};
+
 
 const webpackProConfig = {
     mode: 'production',
@@ -116,15 +136,7 @@ const webpackProConfig = {
         new FileManagerPlugin({
             events: {
                 onEnd: {
-                    move: getMoveList(config),
-                    
-                    // 拷贝不经过webpack打包的静态资源
-                    copy: [
-                        {
-                            source: `./${staticFileName}/`, 
-                            destination: `./${outDistFileName}/`
-                        },
-                    ],
+                    ...getOnEndConfig(config)
                 },
             }
         }),
