@@ -1,5 +1,6 @@
 // 开发环境与生产环境公用的配置
 const 
+fs = require('fs'),
 path = require('path'),
 webpackDevConfig = require('./webpack.dev'),
 webpackProdConfig = require('./webpack.prod'),
@@ -16,6 +17,7 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
     outJsFileName,
     hashNum,
     proResFileName,
+    staticFileName,
     pageConfig,
 } = config,
 // 返回页面配置的entry
@@ -29,7 +31,33 @@ getPageEntry = pageConfig => {
     });
     // console.log(entryConfig);
     return entryConfig;
-};
+},
+// 判断staticFileName文件夹存不存在，不存在就创建
+createStaticFile = fileName => {
+    const 
+    myPath = path.resolve(__dirname, `../${fileName}`);
+    content = 'This file is created for the first time and will not be compiled by webpack.',
+    creatingFileName = '[webpack.common.js]',
+    createText = [`${creatingFileName} Create a`, 'folder']
+
+    // 文件不存在，创建
+    if (!fs.existsSync(myPath)) {
+        const
+        white = '\033[37m<i>\033[0m',
+        yellow1 = '\033[33m'+createText[0]+'\033[0m',
+        green2 = '\033[32m'+fileName+'\033[0m',
+        yellow2 = '\033[33m'+createText[1]+'\033[0m';
+        
+        fs.mkdirSync(myPath);
+
+        fs.writeFileSync(path.resolve(__dirname, `../${fileName}/test.txt`), content);
+
+        console.log(white, yellow1, green2, yellow2);
+    }
+}
+
+createStaticFile(staticFileName);
+
 
 const webpackCommonConfig = {
     // 入口

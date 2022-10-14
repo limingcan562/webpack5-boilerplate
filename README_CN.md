@@ -121,6 +121,7 @@ myplugin: {
 经过测试发现，`@babel/plugin-transform-modules-commonjs`这个插件会影响`webpack` `tree shaking`的功能，所以这个插件还是要慎重安装
 
 ## End
+- 每次修改完`webpack`文件夹里面的文件，记得`npm start`重新开一下服务
 - 对于这个脚手架的更多的分析，可以看看我这个文章[关于Webpack5搭建的一些体会](https://limingcan562.github.io/posts/build-webpack5-feeling)
 - 欢迎大家`Fork`学习交流
 - 脚手架里面都写了注释了，如果觉得好用，欢迎大家`Star`  

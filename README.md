@@ -125,6 +125,7 @@ The test shows that the `@babel/plugin-transform-modules-commonjs` plug-in will 
 
 
 ## End
+- Every time you finish modifying the files in the `webpack` folder, remember to restart the service with `npm start`
 - For more analysis of this scaffolding, you can see my article [some experience on Webpack5 construction](https://limingcan562.github.io/posts/build-webpack5-feeling)
 - Welcome to `Fork` to learn and exchange
 - Notes are written in the scaffolding, if you find it useful, welcome to `Star`  
