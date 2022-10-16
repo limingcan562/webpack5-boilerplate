@@ -3,23 +3,29 @@
 
 ## Features
 - 基于`webpack5`搭建的脚手架
-- 支持第三方代码分割
+- 最少的依赖安装
 - 支持`ES6`语法编译
+- 兼容`ie10`及以上版本
 - 编译`Less`
+- 支持第三方代码分割
 - 支持自己的模块代码分割
 - 支持多页面打包
-- 兼容`ie10`及以上版本
 
 ## File Structure
 ```
+webpack5-boilerplate
+├── README.md
+├── README_CN.md
+├── babel.config.json
 ├── package.json
 ├── public
-│   └── favicon.ico
+│   └── lMC.ico
 ├── src
 │   ├── assets
 │   │   ├── font
 │   │   ├── img
 │   │   ├── media
+│   │   ├── plugins
 │   │   └── styles
 │   ├── entry
 │   │   ├── index.js
@@ -36,6 +42,7 @@
 - `package.json`：相关依赖
 - `public`： 不会被`webpack`编译的文件，打包后会直接输出到打包的根目录下
 - `src`：开发过程中的代码，会被`webpack`编译
+  - `src/assets/plugins`：用来存放自己写的`js`**（用与分割自己插件代码的目录）**
 - `entry`: 入口文件
 - `pages`：要被编译的`html`模板
 - `webpack`：关于`webpack`的相关配置
@@ -51,25 +58,32 @@
 `npm start`  
 - 打包  
 `npm run build`  
+
+## Split your own code
 - 如果要分割自己的代码模块，在`webpack.common.js`里面开启以下代码就可以了  
-```javascript
-myplugin: {
-    name: 'myplugin',
-    test(module) {
-        // `module.resource` contains the absolute path of the file on disk.
-        // Note the usage of `path.sep` instead of / or \, for cross-platform compatibility.
-        // console.log(module.resource, 111);
-        // console.log(module.resource && module.resource.includes(`${path.sep}Myplugins${path.sep}`));
-        return(
-            module.resource &&
-            module.resource.includes(`${path.sep}plugins${path.sep}myplugin`)
-        );
+    ```javascript
+    myplugin: {
+        name: 'myplugin',
+        test(module) {
+            return(
+                module.resource &&
+                module.resource.includes(`${path.sep}plugins${path.sep}myplugin`)
+            );
+        },
+        minSize: 0, //表示在压缩前的最小模块大小,默认值是 30kb
+        priority: 10,  // 优先级要大于 vendors 不然会被打包进 vendors
+        chunks: 'initial' // 将什么类型的代码块用于分割，三选一： "initial"：入口代码块 | "all"：全部 | "async"：按需加载的代码块
     },
-    minSize: 0, //表示在压缩前的最小模块大小,默认值是 30kb
-    priority: 10,  // 优先级要大于 vendors 不然会被打包进 vendors
-    chunks: 'initial' // 将什么类型的代码块用于分割，三选一： "initial"：入口代码块 | "all"：全部 | "async"：按需加载的代码块
-},
-```
+    ```
+- 说明：
+  - `${path.sep}plugins${path.sep}myplugin` 可以理解为`${path.sep}你的插件存放目录${path.sep}你的插件名字`
+  - `name` 表示把自己的代码分割出来，并且重命名为[`name`]
+  - `plugins` 指的是`src/assets/plugins`
+  - `myplugin` 指的是，要分割的自己的`js`代码名字，一定要跟自己取的名字相匹配，这样才能匹配分割到。
+
+- 例如：  
+  我现在要分割`src/assets/other/otherplugin.js`这个文件，所以插件存放目录为`other`，插件名字为`otherplugin`。根据`${path.sep}你的插件存放目录${path.sep}你的插件名字`，那配置就是：`${path.sep}other${path.sep}otherplugin`
+
 
 ## Instruction
 - 本地开发过程中，开启了`webpack-dev-server`，保存在内存中的打包文件目录结构：

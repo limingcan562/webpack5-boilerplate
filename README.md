@@ -5,24 +5,29 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 
 ## Features
 - Scaffolding based on `webpack5`
-- Support for third-party code splitting
+- Minimal dependent installation
 - Support `ES6` syntax compilation
+- Compatible with version `ie10` and above
 - Compile `Less`
-- Support own module code splitting
-- Support multi-page packaging
-- Compatible with versions above level `IE10`
-
+- Support third-party code splitting
+- Support your own module code division
+- Support multi page packaging
 
 ## File Structure
 ```
+webpack5-boilerplate
+├── README.md
+├── README_CN.md
+├── babel.config.json
 ├── package.json
 ├── public
-│   └── favicon.ico
+│   └── lMC.ico
 ├── src
 │   ├── assets
 │   │   ├── font
 │   │   ├── img
 │   │   ├── media
+│   │   ├── plugins
 │   │   └── styles
 │   ├── entry
 │   │   ├── index.js
@@ -39,6 +44,7 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 - `package.json`: related dependencies
 - `public`: files that will not be compiled by `webpack` will be directly output to the root directory of the package after packaging
 - `src`: code during development, which will be compiled by `webpack`
+  - `src/assets/plugins`: used to store your own 'js' **(use the directory to separate your own plug-in code)**
 - `entry`: entry file
 - `pages`: the `html` template to be compiled
 - `webpack`: related configuration about `webpack`
@@ -54,25 +60,36 @@ English | [中文](https://github.com/limingcan562/webpack5-boilerplate/blob/mai
 `npm start`  
 - Packaging production  
 `npm run build`  
+
+## Split your own code
 - If you want to split your own code modules, just open the following code in `webpack.common.js`    
-```javascript
-myplugin: {
-    name: 'myplugin',
-    test(module) {
-        // `module.resource` contains the absolute path of the file on disk.
-        // Note the usage of `path.sep` instead of / or \, for cross-platform compatibility.
-        // console.log(module.resource, 111);
-        // console.log(module.resource && module.resource.includes(`${path.sep}Myplugins${path.sep}`));
-        return(
-            module.resource &&
-            module.resource.includes(`${path.sep}plugins${path.sep}myplugin`)
-        );
+    ```javascript
+    myplugin: {
+        name: 'myplugin',
+        test(module) {
+            // `module.resource` contains the absolute path of the file on disk.
+            // Note the usage of `path.sep` instead of / or \, for cross-platform compatibility.
+            // console.log(module.resource, 111);
+            // console.log(module.resource && module.resource.includes(`${path.sep}Myplugins${path.sep}`));
+            return(
+                module.resource &&
+                module.resource.includes(`${path.sep}plugins${path.sep}myplugin`)
+            );
+        },
+        minSize: 0,
+        priority: 10,
+        chunks: 'initial'
     },
-    minSize: 0,
-    priority: 10,
-    chunks: 'initial'
-},
-```
+    ```
+
+- Description：
+  - `${path.sep}plugins${path.sep}myplugin` can be interpreted as `${path.sep}your plug-in storage directory${path.sep}your plug-in name`
+  - `name` means to split your code and rename it to [`name`]
+  - `plugins` refers to `src/assets/plugins`
+  - `myplugin` means that the name of your own `js` code to be split must match the name you choose so that it can be matched and split.
+
+- For example:  
+  Now I want to split the file `src/assets/other/otherplugin.js`, so the plug-in storage directory is `other`, and the plug-in name is `otherplugin`. According to `${path.sep}your plug-in storage directory${path.sep}your plug-in name`, the configuration is: `${path.sep}other${path. sep}otherplugin`
 
 ## Instruction
 - During the local development process, `webpack-dev-server` is enabled, and the package file directory structure stored in memory:
