@@ -24,45 +24,10 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
     maxAudioSize,
     maxFontSize
 } = config,
-// 返回页面配置的entry
-getPageEntry = pageConfig => {
-    const entryConfig = {};
-    pageConfig.forEach(item => {
-        const entryName = item.name;
-        const entryPath = item.path;
-
-        entryConfig[entryName] = entryPath;
-    });
-    // console.log(entryConfig);
-    return entryConfig;
-},
-// 判断staticFileName文件夹存不存在，不存在就创建
-createStaticFile = fileName => {
-    const 
-    myPath = path.resolve(__dirname, `../${fileName}`);
-    content = '# Description\nWhen you initialize the project for the first time and set the staticFileName configuration, but there is no staticFileName folder locally, the staticFileName folder will be generated, along with this file.  \n\n\n**The folder staticFileName will not be compiled by the webpack.**',
-    creatingFileName = '[common.js]',
-    createText = [`${creatingFileName} Create a`, 'folder']
-
-    // 文件不存在，创建
-    if (fileName && !fs.existsSync(myPath)) {
-        const
-        white = '\033[37m<i>\033[0m',
-        yellow1 = '\033[33m'+createText[0]+'\033[0m',
-        green2 = '\033[32m'+fileName+'\033[0m',
-        yellow2 = '\033[33m'+createText[1]+'\033[0m';
-        
-        fs.mkdirSync(myPath);
-
-        fs.writeFileSync(path.resolve(__dirname, `../${fileName}/README.md`), content);
-
-        console.log(white, yellow1, green2, yellow2);
-    }
-};
+{createStaticFile, getPageEntry} = require('./tool');
 
 // 生成staticFileName目录
 createStaticFile(staticFileName);
-
 
 const webpackCommonConfig = {
     // 入口
@@ -74,6 +39,8 @@ const webpackCommonConfig = {
         // 控制的是import() 出来的js，默认与filename一样
         chunkFilename: `${outJsFileName}/[name]-[contenthash:${hashNum}].js`, 
     },
+
+    stats: 'errors-only',
 
     // 快速引入对应模块
     resolve: {

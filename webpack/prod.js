@@ -12,73 +12,7 @@ TerserPlugin = require("terser-webpack-plugin"),
     staticFileName,
     hashNum,
 } = config,
-// 获取生产环境的publicPath
-getProPublicPath = config => {
-    let proPublicPath = '';
-
-    // 直接是cdn地址
-    if (config.proPublicPath && !config.proResFileName) {
-        proPublicPath = `${config.proPublicPath}/`;
-    } 
-    // 有cdn绝对路径 && 把js\css\media\img 放入proResFileName文件夹
-    else if (config.proPublicPath && config.proResFileName) {
-        proPublicPath = `${config.proPublicPath}/${config.proResFileName}/`;
-    }
-    // 打包出来后需要js\css\media\img 放入proResFileName文件夹
-    else if (config.proResFileName) {
-        proPublicPath = `./${config.proResFileName}/`;
-    }
-    // 不需要把js\css\media\img 放入proResFileName文件夹
-    else if (!config.proResFileName) {
-        proPublicPath = './';
-    }
-    return proPublicPath;
-},
-// 获取需要把js\css 放入proResFileName文件夹的移动列表
-getMoveList = config => {
-    let 
-    {
-        outDistFileName,
-        outJsFileName,
-        outCssFileName,
-        proResFileName
-    } = config,
-    moveList = [];
-
-    if (config.proResFileName) {
-        moveList = [
-            {
-                source: `./${outDistFileName}/${outJsFileName}`, 
-                destination: `./${outDistFileName}/${proResFileName}/${outJsFileName}`
-            },
-            {
-                source: `./${outDistFileName}/${outCssFileName}`, 
-                destination: `./${outDistFileName}/${proResFileName}/${outCssFileName}`
-            }
-        ];
-    }
-
-    return moveList;
-},
-
-getOnEndConfig = config => {
-    let 
-    { staticFileName} = config,
-    onEndConfig = {
-        move: getMoveList(config)
-    };
-
-    if (staticFileName) {
-        onEndConfig.copy = [
-            {
-                source: `./${staticFileName}/`, 
-                destination: `./${outDistFileName}/`
-            },
-        ];
-    };
-    
-    return onEndConfig;
-};
+{getProPublicPath, getMoveList, getOnEndConfig} = require('./tool');
 
 
 const webpackProConfig = {
