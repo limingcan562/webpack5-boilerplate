@@ -23,12 +23,12 @@ const config = {
     pageConfig: [
         {
             name: 'index',
-            path: path.resolve(__dirname, `../src/entry/index.js`),
+            path: path.resolve(__dirname, `./src/entry/index.js`),
             title: 'index'
         },
         {
             name: 'share',
-            path: path.resolve(__dirname, `../src/entry/share.js`),
+            path: path.resolve(__dirname, `./src/entry/share.js`),
             title: 'share'
         }
     ]

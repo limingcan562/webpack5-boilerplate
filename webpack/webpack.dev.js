@@ -2,7 +2,7 @@
 const 
 webpack = require('webpack'),
 path = require('path'),
-config = require('./config'),
+config = require('../webpack.config'),
 {
     port,
     staticFileName,

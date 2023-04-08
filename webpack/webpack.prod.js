@@ -4,7 +4,7 @@ webpack = require('webpack'),
 MiniCssExtractPlugin = require("mini-css-extract-plugin"),
 FileManagerPlugin = require('filemanager-webpack-plugin'),
 CssMinimizerPlugin = require("css-minimizer-webpack-plugin"),
-config = require('./config'),
+config = require('../webpack.config'),
 TerserPlugin = require("terser-webpack-plugin"),
 {
     outDistFileName,
