@@ -2,8 +2,8 @@
 const 
 fs = require('fs'),
 path = require('path'),
-webpackDevConfig = require('./webpack.dev'),
-webpackProdConfig = require('./webpack.prod'),
+webpackDevConfig = require('./dev'),
+webpackProdConfig = require('./prod'),
 config = require('../webpack.config'),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
 {merge} = require('webpack-merge'),
@@ -41,7 +41,7 @@ createStaticFile = fileName => {
     const 
     myPath = path.resolve(__dirname, `../${fileName}`);
     content = '# Description\nWhen you initialize the project for the first time and set the staticFileName configuration, but there is no staticFileName folder locally, the staticFileName folder will be generated, along with this file.  \n\n\n**The folder staticFileName will not be compiled by the webpack.**',
-    creatingFileName = '[webpack.common.js]',
+    creatingFileName = '[common.js]',
     createText = [`${creatingFileName} Create a`, 'folder']
 
     // 文件不存在，创建

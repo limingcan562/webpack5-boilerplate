@@ -7,6 +7,7 @@ config = require('../webpack.config'),
     port,
     staticFileName,
     devOutPutPath,
+    
 } = config;
 
 const webpackDevConfig = {
