@@ -24,7 +24,9 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
     maxAudioSize,
     maxFontSize
 } = config,
-{createStaticFile, getPageEntry} = require('./tool');
+{createStaticFile, getPageEntry} = require('./tool'),
+FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
+
 
 // 生成staticFileName目录
 createStaticFile(staticFileName);
@@ -40,7 +42,7 @@ const webpackCommonConfig = {
         chunkFilename: `${outJsFileName}/[name]-[contenthash:${hashNum}].js`, 
     },
 
-    stats: 'errors-only',
+    stats: 'none',
 
     // 快速引入对应模块
     resolve: {
@@ -192,7 +194,9 @@ const webpackCommonConfig = {
     },
     
     // 插件
-    plugins: []
+    plugins: [
+        // new FriendlyErrorsWebpackPlugin()
+    ]
 }
 
 // 多页面打包
@@ -219,11 +223,15 @@ pageConfig.forEach(item => {
     webpackCommonConfig.plugins.push(htmlWebpackPlugin);
 });
 
-module.exports = (env, argv) => {
-    let envConfig = argv.mode === 'production' ? webpackProdConfig : webpackDevConfig;
-    // console.log(env, 0);
-    // console.log(argv, 1);
-    // console.log(envConfig, 111);
-    // console.log(merge(webpackCommonConfig, envConfig));
-    return merge(webpackCommonConfig, envConfig) // 合并 公共配置 和 环境配置
-}
+// module.exports = (env, argv) => {
+//     let envConfig = argv.mode === 'production' ? webpackProdConfig : webpackDevConfig;
+//     // console.log(env, 0);
+//     // console.log(argv, 1);
+//     // console.log(envConfig, 111);
+//     // console.log(merge(webpackCommonConfig, envConfig));
+//     return merge(webpackCommonConfig, envConfig) // 合并 公共配置 和 环境配置
+// }
+
+// const finalConfig = is_pro ? merge(webpackCommonConfig, webpackProdConfig) : merge(webpackCommonConfig, webpackDevConfig);
+module.exports = webpackCommonConfig;
+// module.exports = finalConfig;

@@ -31,9 +31,9 @@ const webpackDevConfig = {
         },
 
         // 让服务器可以被外部访问
-        host: '0.0.0.0',
+        // host: '0.0.0.0',
 
-        port: port
+        port
     },
 
     module: {

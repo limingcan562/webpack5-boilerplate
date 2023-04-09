@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const os = require("os");
 
 // 返回页面配置的entry
 const getPageEntry = pageConfig => {
