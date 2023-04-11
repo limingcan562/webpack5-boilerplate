@@ -24,9 +24,7 @@ is_pro = envMode !== -1, // 判断当前是生产环境，还是开发环境
     maxAudioSize,
     maxFontSize
 } = config,
-{createStaticFile, getPageEntry} = require('./tool'),
-FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
-
+{createStaticFile, getPageEntry} = require('./tool');
 
 // 生成staticFileName目录
 createStaticFile(staticFileName);
@@ -42,7 +40,13 @@ const webpackCommonConfig = {
         chunkFilename: `${outJsFileName}/[name]-[contenthash:${hashNum}].js`, 
     },
 
-    stats: 'none',
+    // stats: 'errors-only',
+    stats: {
+        assets: false,
+        colors: true,
+        modules: false,
+        entrypoints: false,
+    },
 
     // 快速引入对应模块
     resolve: {

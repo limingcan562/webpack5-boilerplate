@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack serve  --no-stats --mode=development --config webpack/webpack.config.js",
-    "build": "webpack --mode=production --config webpack/common.js",
-    "serve": "node webpack/serve.js --mode=development"
+    "dev": "webpack serve --mode=development --config webpack/final.js",
+    "build": "webpack --progress --mode=production --config webpack/final.js"
   },
   "keywords": [
     "webpack",

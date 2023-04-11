@@ -22,6 +22,14 @@ const webpackProConfig = {
         publicPath: getProPublicPath(config), 
         clean: true
     },
+
+    // stats: {
+        // assets: true,
+        // colors: true,
+        // modules: true,
+        // entrypoints: false,
+    // },
+
     module: {
         rules: [
             // 编译css文件，分离css代码
